@@ -44,11 +44,6 @@ The database has two tables: `users` (name, email, hashed password) and `todos` 
 
 ## Getting Started
 Run the app:
-
-```bash
-python app.py
-```
-
 Then open http://127.0.0.1:5000 in your browser.
 
 ## Usage
