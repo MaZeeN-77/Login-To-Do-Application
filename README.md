@@ -105,48 +105,4 @@ Generate a strong secret key with:
 python -c "import secrets; print(secrets.token_hex(32))"
 ```
 
-### 5. Test the database connection (optional)
 
-```bash
-python test_db.py
-```
-
-You should see `Connected! users count = ...`.
-
-### 6. Run the app
-
-```bash
-python app.py
-```
-
-Open <http://127.0.0.1:5000> in your browser.
-
-## Usage
-
-1. Open the app and click **Register** to create an account.
-2. Log in with your email and password.
-3. Add tasks, tick them off when done, edit their titles, or delete them.
-4. Click **Logout** when you are finished.
-
-## Routes
-
-| Route                      | Method    | Description                       |
-| -------------------------- | --------- | --------------------------------- |
-| `/`                        | GET       | Redirects to to-dos or login      |
-| `/register`                | GET, POST | Create a new account              |
-| `/login`                   | GET, POST | Log in                            |
-| `/logout`                  | GET       | Log out and clear the session     |
-| `/todos`                   | GET       | Show the current user's tasks     |
-| `/todos/add`               | POST      | Add a task                        |
-| `/todos/<id>/edit`         | POST      | Edit a task title                 |
-| `/todos/<id>/toggle`       | POST      | Mark a task done / not done       |
-| `/todos/<id>/delete`       | POST      | Delete a task                     |
-
-## Notes
-
-- `app.run(debug=True)` is meant for development only. Turn debug mode off before deploying.
-- Never commit your real `.env` file. It is already listed in `.gitignore`.
-
-## Author
-
-Made by [MaZeeN-77](https://github.com/MaZeeN-77)
