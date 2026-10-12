@@ -1,108 +1,88 @@
 # Login To-Do Application
 
-A simple multi-user to-do web app built with **Flask** and **Microsoft SQL Server**. Users register and log in with a password-protected account, then manage their own private list of tasks.
+A web application that lets users create an account, log in, and keep their own to-do list. Each user has a private list, so nobody can see or change another person's tasks.
+
+The project is built with Flask (Python) on the backend and SQL Server as the database.
 
 ## Features
 
-- **User accounts**: register and log in with name, email and password
-- **Secure passwords**: hashed with `bcrypt`, never stored in plain text
-- **Session-based authentication**: protected pages redirect to the login page
-- **Personal to-do list**: each user only sees and changes their own tasks
-- **Full task management**: add, edit, mark as done/undone, and delete tasks
-- **Form validation**: required fields, matching passwords, duplicate email detection, title length limit (200 characters)
-- **Parameterized SQL queries** to protect against SQL injection
+- Register a new account with name, email and password
+- Log in and log out
+- Add new tasks
+- Edit a task
+- Mark a task as done or not done
+- Delete a task
+- Each user only sees their own tasks
+- Passwords are hashed, not stored as plain text
+- Form validation with error messages (empty fields, passwords not matching, email already used)
 
-## Tech Stack
+## Technologies
 
-| Layer      | Technology                          |
-| ---------- | ----------------------------------- |
-| Backend    | Python, Flask                       |
-| Database   | Microsoft SQL Server (via `pyodbc`) |
-| Security   | `bcrypt`                            |
-| Config     | `python-dotenv`                     |
-| Frontend   | HTML templates (Jinja2), CSS        |
+- Python and Flask for the server
+- SQL Server for storing users and tasks
+- pyodbc to connect Python to SQL Server
+- bcrypt for password hashing
+- python-dotenv to load settings from a `.env` file
+- HTML templates and CSS for the pages
+
+## How It Works
+
+A new user registers and the password is hashed before it is saved in the database. After logging in, the user is redirected to their to-do page, where they can add, edit, complete and delete tasks. If someone tries to open the to-do page without logging in, they are sent back to the login page.
+
+The database has two tables: `users` (name, email, hashed password) and `todos` (title, done status, creation date, and the user who owns it).
 
 ## Project Structure
 
-```
-Login-To-Do-Application/
-├── app.py            # Flask app: routes for auth and to-dos
-├── db.py             # SQL Server connection helper
-├── test_db.py        # Quick script to check the database connection
-├── database/         # SQL scripts for creating the database tables
-├── templates/        # Jinja2 HTML pages (login, register, todos)
-├── static/           # CSS and static assets
-├── screenshots/      # App screenshots
-├── .env.example      # Example environment configuration
-└── README.md
-```
-
-## Database Schema
-
-The app expects two tables in the SQL Server database (default name: `registration`):
-
-- **users**: `user_id`, `email` (unique), `name`, `password_hash`
-- **todos**: `todo_id`, `user_id` (belongs to a user), `title`, `is_done`, `created_at`
-
-The SQL script to create them is in the `database/` folder.
+- `app.py` - the main Flask app with all the routes
+- `db.py` - connects to the SQL Server database
+- `test_db.py` - a small script to test the database connection
+- `database/` - the SQL script that creates the tables
+- `templates/` - the HTML pages
+- `static/` - CSS and static files
+- `screenshots/` - screenshots of the app
+- `.env.example` - example of the settings the app needs
 
 ## Getting Started
 
-### Prerequisites
+You need Python, SQL Server (Express is fine) and the ODBC Driver 18 for SQL Server installed.
 
-- Python 3.9+
-- SQL Server (e.g. SQL Server Express)
-- [ODBC Driver 18 for SQL Server](https://learn.microsoft.com/sql/connect/odbc/download-odbc-driver-for-sql-server)
-
-### 1. Clone the repository
+1. Clone the project and install the packages:
 
 ```bash
 git clone https://github.com/MaZeeN-77/Login-To-Do-Application.git
 cd Login-To-Do-Application
-```
-
-### 2. Create a virtual environment and install dependencies
-
-```bash
-python -m venv venv
-
-# Windows
-venv\Scripts\activate
-# macOS / Linux
-source venv/bin/activate
-
 pip install flask bcrypt pyodbc python-dotenv
 ```
 
-### 3. Set up the database
+2. Create a database in SQL Server and run the script inside the `database` folder to create the tables.
 
-Create a database named `registration` (or any name you prefer) in SQL Server, then run the SQL script from the `database/` folder to create the `users` and `todos` tables.
+3. Copy `.env.example` to `.env` and fill in your values:
 
-### 4. Configure environment variables
+- `DB_SERVER` - your SQL Server instance, for example `localhost\SQLEXPRESS`
+- `DB_NAME` - the database name
+- `DB_DRIVER` - the ODBC driver name
+- `DB_TRUSTED` - `yes` to use Windows authentication, or `no` to use a username and password
+- `DB_USER` and `DB_PASSWORD` - only needed if `DB_TRUSTED` is `no`
+- `SECRET_KEY` - any long random text, used to protect sessions
 
-Copy the example file and edit it:
-
-```bash
-# Windows
-copy .env.example .env
-# macOS / Linux
-cp .env.example .env
-```
-
-| Variable      | Description                                                    | Example                         |
-| ------------- | -------------------------------------------------------------- | ------------------------------- |
-| `DB_SERVER`   | SQL Server instance                                            | `localhost\SQLEXPRESS`          |
-| `DB_NAME`     | Database name                                                  | `registration`                  |
-| `DB_DRIVER`   | ODBC driver name                                               | `ODBC Driver 18 for SQL Server` |
-| `DB_TRUSTED`  | `yes` for Windows Authentication, `no` for SQL login           | `yes`                           |
-| `DB_USER`     | SQL login username (only if `DB_TRUSTED=no`)                   |                                 |
-| `DB_PASSWORD` | SQL login password (only if `DB_TRUSTED=no`)                   |                                 |
-| `SECRET_KEY`  | Long random string used to sign Flask sessions                 | `change-me`                     |
-
-Generate a strong secret key with:
+4. (Optional) Check that the database connection works:
 
 ```bash
-python -c "import secrets; print(secrets.token_hex(32))"
+python test_db.py
 ```
 
+5. Run the app:
 
+```bash
+python app.py
+```
+
+Then open http://127.0.0.1:5000 in your browser.
+
+## Usage
+
+Open the app, register a new account, and log in. From the to-do page you can add tasks, tick them when they are done, edit their titles, or delete them. Use the logout link when you are finished.
+
+## Author
+
+MaZeeN-77
