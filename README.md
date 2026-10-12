@@ -43,35 +43,7 @@ The database has two tables: `users` (name, email, hashed password) and `todos` 
 - `.env.example` - example of the settings the app needs
 
 ## Getting Started
-
-You need Python, SQL Server (Express is fine) and the ODBC Driver 18 for SQL Server installed.
-
-1. Clone the project and install the packages:
-
-```bash
-git clone https://github.com/MaZeeN-77/Login-To-Do-Application.git
-cd Login-To-Do-Application
-pip install flask bcrypt pyodbc python-dotenv
-```
-
-2. Create a database in SQL Server and run the script inside the `database` folder to create the tables.
-
-3. Copy `.env.example` to `.env` and fill in your values:
-
-- `DB_SERVER` - your SQL Server instance, for example `localhost\SQLEXPRESS`
-- `DB_NAME` - the database name
-- `DB_DRIVER` - the ODBC driver name
-- `DB_TRUSTED` - `yes` to use Windows authentication, or `no` to use a username and password
-- `DB_USER` and `DB_PASSWORD` - only needed if `DB_TRUSTED` is `no`
-- `SECRET_KEY` - any long random text, used to protect sessions
-
-4. (Optional) Check that the database connection works:
-
-```bash
-python test_db.py
-```
-
-5. Run the app:
+Run the app:
 
 ```bash
 python app.py
