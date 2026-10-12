@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>Create account</h1>
+
+    <form method="POST" action="/register" id="register-form" novalidate>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" value="{{ form.name or '' }}">
+        <div class="error" id="err-name">{{ errors.name or '' }}</div>
+
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email" value="{{ form.email or '' }}">
+        <div class="error" id="err-email">{{ errors.email or '' }}</div>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password">
+        <div class="error" id="err-password">{{ errors.password or '' }}</div>
+
+        <label for="confirm_password">Confirm password</label>
+        <input type="password" id="confirm_password" name="confirm_password">
+        <div class="error" id="err-confirm">{{ errors.confirm or '' }}</div>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <p class="link">Already have an account? <a href="/login">Log in</a></p>
+</div>
+
+<script src="{{ url_for('static', filename='register.js') }}"></script>
+{% endblock %}

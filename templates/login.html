@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Log in{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>Log in</h1>
+
+    {% if errors.general %}
+    <div class="alert">{{ errors.general }}</div>
+    {% endif %}
+
+    <form method="POST" action="/login" id="login-form" novalidate>
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email" value="{{ form.email or '' }}">
+        <div class="error" id="err-email">{{ errors.email or '' }}</div>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password">
+        <div class="error" id="err-password">{{ errors.password or '' }}</div>
+
+        <button type="submit">Log in</button>
+    </form>
+
+    <p class="link">No account? <a href="/register">Register</a></p>
+</div>
+
+<script src="{{ url_for('static', filename='login.js') }}"></script>
+{% endblock %}

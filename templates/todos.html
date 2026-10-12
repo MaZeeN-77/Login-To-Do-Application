@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}My To-Do{% endblock %}
+
+{% block content %}
+<div class="card wide">
+    <div class="topbar">
+        <h1>To-Do</h1>
+        <div class="user">
+            Hi, {{ name }}
+            <a class="btn-small" href="/logout">Log out</a>
+        </div>
+    </div>
+
+    <form method="POST" action="/todos/add" id="add-form" class="add-row" novalidate>
+        <input type="text" id="title" name="title" placeholder="What needs to be done?" value="{{ form.title or '' }}">
+        <button type="submit">Add</button>
+    </form>
+    <div class="error" id="err-title">{{ errors.title or '' }}</div>
+
+    {% if edit_error %}
+    <div class="alert">{{ edit_error }}</div>
+    {% endif %}
+
+    {% if todos %}
+        {% for t in todos %}
+        <div class="todo {% if t.is_done %}done{% endif %}">
+
+            <form method="POST" action="/todos/{{ t.todo_id }}/toggle">
+                <input type="hidden" name="is_done" value="{{ 0 if t.is_done else 1 }}">
+                <button type="submit" class="check" title="Mark done / not done">
+                    {% if t.is_done %}&#10003;{% else %}&#9675;{% endif %}
+                </button>
+            </form>
+
+            <form method="POST" action="/todos/{{ t.todo_id }}/edit" class="edit-form edit-js">
+                <input type="text" name="title" value="{{ t.title }}">
+                <button type="submit" class="btn-small">Save</button>
+            </form>
+
+            <form method="POST" action="/todos/{{ t.todo_id }}/delete" class="delete-form" onsubmit="return confirm('Are you sure you want to delete this to-do?');">
+                <button type="submit" class="btn-small danger">Delete</button>
+            </form>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="empty">No to-dos yet. Add your first one above!</p>
+    {% endif %}
+</div>
+
+<script src="{{ url_for('static', filename='todos.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,107 @@
+* { box-sizing: border-box; }
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f3f4f6;
+    margin: 0;
+    color: #111827;
+}
+
+.container {
+    max-width: 420px;
+    margin: 40px auto;
+    padding: 0 16px;
+}
+
+.card {
+    background: #fff;
+    padding: 24px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+h1 { margin-top: 0; }
+
+label { display: block; margin-top: 14px; font-weight: bold; }
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    background: #2563eb;
+    color: #fff;
+    border: 0;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover { background: #1d4ed8; }
+
+.error { color: #dc2626; font-size: 14px; min-height: 18px; margin-top: 4px; }
+
+.link { text-align: center; margin-top: 16px; }
+
+.alert {
+    background: #fee2e2;
+    color: #b91c1c;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+
+.card.wide { max-width: 640px; margin: 0 auto; }
+.container:has(.wide) { max-width: 680px; }
+
+.topbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.topbar h1 { margin: 0; }
+.user { display: flex; align-items: center; gap: 8px; }
+
+.btn-small {
+    padding: 6px 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #111827;
+    font-size: 14px;
+}
+
+.add-row { display: flex; gap: 8px; margin-top: 16px; }
+.add-row input { margin-top: 0; flex: 1; }
+.add-row button { width: auto; margin-top: 0; padding: 10px 18px; }
+
+.todo { display: flex; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid #e5e7eb; }
+.todo.done .todo-title { text-decoration: line-through; color: #9ca3af; }
+.empty { text-align: center; color: #6b7280; margin-top: 24px; }
+
+.edit-form { display: flex; gap: 6px; flex: 1; }
+.edit-form input { margin-top: 0; padding: 8px; }
+.todo.done .edit-form input { text-decoration: line-through; color: #9ca3af; }
+
+.check {
+    width: 34px;
+    margin-top: 0;
+    padding: 6px;
+    background: #fff;
+    color: #2563eb;
+    border: 1px solid #d1d5db;
+    font-size: 18px;
+}
+.check:hover { background: #eff6ff; }
+
+.btn-small { background: #fff; cursor: pointer; width: auto; margin-top: 0; }
+.btn-small:hover { background: #f3f4f6; }
+.danger { color: #b91c1c; border-color: #fecaca; }
+.danger:hover { background: #fee2e2; }
+
+.todo { flex-wrap: wrap; }
+
